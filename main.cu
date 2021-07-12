@@ -376,8 +376,8 @@ int main(int argc, char **argv)
         phi2_avg=phi2_avg/configs;
         //phi4_avg=phi4_avg/configs;
         
-        data<<mu<<"\t"<<n_avg<<"\t"<<errorjack(xi);
-        data1<<mu<<"\t"<<phi2_avg<<"\t"<<errorjack(phi2i);//<<"\t"<<phi4_avg<<endl;
+        data<<mu<<"\t"<<n_avg<<"\t"<<errorjack(xi)<<endl;
+        data1<<mu<<"\t"<<phi2_avg<<"\t"<<errorjack(phi2i)<<endl;//<<"\t"<<phi4_avg<<endl;
         mu+=dmu;
         cout<<g<<endl;
         
