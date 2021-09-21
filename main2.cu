@@ -195,16 +195,17 @@ __global__ void k_rho(int t, int *delrand, double *rho, int *k, int *a, double m
     {
         if (k[x[0]+Nt*x[1]+Nt*Ns*t]>=0) rho[x[0]+Nt*x[1]]*=1.0/(k[x[0]+Nt*x[1]+Nt*Ns*t]+1+a[x[0]+Nt*x[1]+Nt*Ns*t]);
         else rho[x[0]+Nt*x[1]]*=abs(k[x[0]+Nt*x[1]+Nt*Ns*t])+a[x[0]+Nt*x[1]+Nt*Ns*t];
-        if (k[x[0]+Nt*x[1]+Nt*Ns*t]>=0 && k[x_[0]+Nt*x_[1]+Nt*Ns*t]>=0) rho[x[0]+Nt*x[1]]*=exp(del*mu*(t==0))*I_val[sx(x,k,a)+2]/I_val[sx(x,k,a)];
-        else if (k[x[0]+Nt*x[1]+Nt*Ns*t]<0 && k[x_[0]+Nt*x_[1]+Nt*Ns*t]<0) rho[x[0]+Nt*x[1]]*=exp(del*mu*(t==0))*I_val[sx(x,k,a)-2]/I_val[sx(x,k,a)];
+        if (k[x[0]+Nt*x[1]+Nt*Ns*t]>=0 && k[x_[0]+Nt*x_[1]+Nt*Ns*t]>=0) rho[x[0]+Nt*x[1]]*=I_val[sx(x,k,a)+2]/I_val[sx(x,k,a)];
+        else if (k[x[0]+Nt*x[1]+Nt*Ns*t]<0 && k[x_[0]+Nt*x_[1]+Nt*Ns*t]<0) rho[x[0]+Nt*x[1]]*=I_val[sx(x,k,a)-2]/I_val[sx(x,k,a)];
     }
     else
     {
         if (k[x[0]+Nt*x[1]+Nt*Ns*t]>0) rho[x[0]+Nt*x[1]]*=k[x[0]+Nt*x[1]+Nt*Ns*t]+a[x[0]+Nt*x[1]+Nt*Ns*t];
         else rho[x[0]+Nt*x[1]]*=1.0/(abs(k[x[0]+Nt*x[1]+Nt*Ns*t])+a[x[0]+Nt*x[1]+Nt*Ns*t]+1);
-        if (k[x[0]+Nt*x[1]+Nt*Ns*t]<=0 && k[x_[0]+Nt*x_[1]+Nt*Ns*t]<=0) rho[x[0]+Nt*x[1]]*=exp(del*mu*(t==0))*I_val[sx(x,k,a)+2]/I_val[sx(x,k,a)];
-        else if (k[x[0]+Nt*x[1]+Nt*Ns*t]>0 && k[x_[0]+Nt*x_[1]+Nt*Ns*t]>0) rho[x[0]+Nt*x[1]]*=exp(del*mu*(t==0))*I_val[sx(x,k,a)-2]/I_val[sx(x,k,a)];
+        if (k[x[0]+Nt*x[1]+Nt*Ns*t]<=0 && k[x_[0]+Nt*x_[1]+Nt*Ns*t]<=0) rho[x[0]+Nt*x[1]]*=I_val[sx(x,k,a)+2]/I_val[sx(x,k,a)];
+        else if (k[x[0]+Nt*x[1]+Nt*Ns*t]>0 && k[x_[0]+Nt*x_[1]+Nt*Ns*t]>0) rho[x[0]+Nt*x[1]]*=I_val[sx(x,k,a)-2]/I_val[sx(x,k,a)];
     }
+    rho[id]*=exp(del*mu*(t==0));
 }
 __global__ void temporalloop_update(double *rho_vals, int *rand2, int *k){
     
